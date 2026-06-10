@@ -1,0 +1,6 @@
+{
+  "name": "SkillSwap",
+  "description": "A peer-to-peer academic marketplace for university students to exchange coding, writing, design, and tutoring services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
