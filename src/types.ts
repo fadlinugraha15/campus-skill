@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export type UserRole = 'penyedia_jasa' | 'pelanggan';
+
 export interface UserProfile {
   name: string;
   avatar: string;
@@ -13,9 +15,11 @@ export interface UserProfile {
   earnings: number;
   balance: number;
   bio?: string;
+  role?: UserRole;
+  ktmPhoto?: string;
 }
 
-export type ServiceCategory = 'All' | 'Coding' | 'Writing' | 'Design' | 'Tutoring' | 'Business' | 'Language';
+export type ServiceCategory = 'Semua' | 'Pemrograman' | 'Menulis' | 'Desain' | 'Bimbingan' | 'Bisnis' | 'Bahasa';
 
 export interface Service {
   id: string;
@@ -32,7 +36,7 @@ export interface Service {
   };
 }
 
-export type OrderStatus = 'In Progress' | 'Awaiting Review' | 'Pending Confirmation' | 'Completed';
+export type OrderStatus = 'Sedang Berjalan' | 'Menunggu Review' | 'Menunggu Konfirmasi' | 'Selesai';
 
 export interface Order {
   id: string;

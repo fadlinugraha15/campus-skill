@@ -18,23 +18,23 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
   const [notifications, setNotifications] = useState([
     {
       id: 'n-1',
-      title: 'New Message from Sarah',
-      text: '"Can we meet at the library to discuss the Python project?"',
-      time: '12m ago',
+      title: 'Pesan Baru dari Sarah',
+      text: '"Bisa ketemu di perpustakaan untuk diskusi project Python?"',
+      time: '12m yang lalu',
       read: false,
     },
     {
       id: 'n-2',
-      title: 'Order Status Update',
-      text: 'Advanced Calculus Tutoring has been marked In Progress.',
-      time: '1h ago',
+      title: 'Pembaruan Status Pesanan',
+      text: 'Bimbingan Kalkulus Tingkat Lanjut telah ditandai Sedang Berjalan.',
+      time: '1j yang lalu',
       read: true,
     },
     {
       id: 'n-3',
-      title: 'Welcome to SkillSwap!',
-      text: 'Start exploring academic services offered by your university peers.',
-      time: '1d ago',
+      title: 'Selamat Datang di Campus Skill!',
+      text: 'Mulai jelajahi layanan akademik yang ditawarkan oleh teman sekelasmu.',
+      time: '1h yang lalu',
       read: true,
     }
   ]);
@@ -54,11 +54,11 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
           onClick={() => onTabChange('home')}
         >
           <div className="w-10 h-10 bg-[#FF3E00] flex items-center justify-center text-white border-2 border-[#1A1A1A] text-lg font-bold uppercase tracking-tighter">
-            SS
+            CS
           </div>
           <div>
-            <span className="font-extrabold text-xl md:text-2xl text-[#1A1A1A] tracking-tighter uppercase block leading-none">SkillSwap</span>
-            <span className="text-[9px] text-[#1A1A1A] font-mono hidden md:block tracking-widest uppercase font-bold mt-1">Studio // Campus Exchange</span>
+            <span className="font-extrabold text-xl md:text-2xl text-[#1A1A1A] tracking-tighter uppercase block leading-none">Campus Skill</span>
+            <span className="text-[9px] text-[#1A1A1A] font-mono hidden md:block tracking-widest uppercase font-bold mt-1">Studio // Jual-Beli Skill</span>
           </div>
         </div>
 
@@ -69,14 +69,14 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
             onClick={() => onTabChange('home')}
             className={`font-semibold text-xs uppercase tracking-widest transition-all relative py-1 ${activeTab === 'home' ? 'text-[#FF3E00] after:content-[""] after:absolute after:-bottom-7 after:left-0 after:w-full after:h-1 after:bg-[#FF3E00]' : 'text-[#1A1A1A]/70 hover:text-[#1A1A1A]'}`}
           >
-            Collection
+            Koleksi
           </button>
           <button 
             type="button"
             onClick={() => onTabChange('orders')}
             className={`font-semibold text-xs uppercase tracking-widest transition-all relative py-1 flex items-center gap-1.5 ${activeTab === 'orders' ? 'text-[#FF3E00] after:content-[""] after:absolute after:-bottom-7 after:left-0 after:w-full after:h-1 after:bg-[#FF3E00]' : 'text-[#1A1A1A]/70 hover:text-[#1A1A1A]'}`}
           >
-            Orders
+            Pesanan
             {activeOrdersCount > 0 && (
               <span className="bg-[#FF3E00] border border-[#1A1A1A] text-white text-[9px] font-bold px-1.5 py-0.5 font-mono">
                 {activeOrdersCount}
@@ -88,7 +88,7 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
             onClick={() => onTabChange('inbox')}
             className={`font-semibold text-xs uppercase tracking-widest transition-all relative py-1 flex items-center gap-1.5 ${activeTab === 'inbox' ? 'text-[#FF3E00] after:content-[""] after:absolute after:-bottom-7 after:left-0 after:w-full after:h-1 after:bg-[#FF3E00]' : 'text-[#1A1A1A]/70 hover:text-[#1A1A1A]'}`}
           >
-            Inbox
+            Pesan
             {unreadMessagesCount > 0 && (
               <span className="bg-[#1A1A1A] text-white text-[9px] font-bold px-1.5 py-0.5 font-mono">
                 {unreadMessagesCount}
@@ -100,7 +100,7 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
             onClick={() => onTabChange('profile')}
             className={`font-semibold text-xs uppercase tracking-widest transition-all relative py-1 ${activeTab === 'profile' ? 'text-[#FF3E00] after:content-[""] after:absolute after:-bottom-7 after:left-0 after:w-full after:h-1 after:bg-[#FF3E00]' : 'text-[#1A1A1A]/70 hover:text-[#1A1A1A]'}`}
           >
-            Archive
+            Arsip
           </button>
         </div>
 
@@ -111,7 +111,7 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
             type="button"
             onClick={() => setShowNotifications(!showNotifications)}
             className="w-10 h-10 flex items-center justify-center rounded-none text-[#1A1A1A] hover:bg-[#1A1A1A]/5 border border-[#1A1A1A] active:scale-95 transition-all relative"
-            title="Notifications"
+            title="Notifikasi"
           >
             <Bell className="w-5 h-5 text-[#1A1A1A]" />
             {hasUnreadNotifications && (
@@ -123,10 +123,10 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
           <div 
             onClick={() => onTabChange('profile')}
             className="w-10 h-10 rounded-none overflow-hidden border-2 border-[#1A1A1A] cursor-pointer hover:border-[#FF3E00] transition-colors ml-1 active:scale-95 duration-150"
-            title="View Profile"
+            title="Lihat Profil"
           >
             <img 
-              alt="Profile" 
+              alt="Profil" 
               className="w-full h-full object-cover" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0f-CwmEe-drZtPOdLjuC8Ea1yj4XZS6XpO6AICIBGDWqFQcgmTrCMnwj302RparN7l9Xq-JmeyEq-8Dn2dUtZ2H2WO5jr9MI6_213pVFZZDhuvqzMLgKHLXaRJGQFrztmUFRDasBUyU07Bivlhv40SNaFLG7b0HNCkYTVeCJlrlpFJXt92_Z4fYR9Keknsifczz_jQnmTqIuIaWXJb-J180E33E9NFIO7ZR8O_BrD5tFDMqDdTRaVPjd5fhk7fmF7zE2-S8nw5Q" 
             />
@@ -141,14 +141,14 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
               />
               <div className="absolute right-0 top-14 w-80 bg-[#F4F1EA] rounded-none border-2 border-[#1A1A1A] z-50 py-3 flex flex-col gap-1 max-h-[400px] overflow-y-auto shadow-none">
                 <div className="px-4 pb-2 border-b border-[#1A1A1A] flex justify-between items-center">
-                  <h3 className="font-bold text-[#1A1A1A] text-xs uppercase tracking-wider">Notifications</h3>
+                  <h3 className="font-bold text-[#1A1A1A] text-xs uppercase tracking-wider">Notifikasi</h3>
                   {hasUnreadNotifications && (
                     <button 
                       type="button" 
                       onClick={markAllAsRead}
                       className="text-[10px] text-[#FF3E00] hover:underline font-bold uppercase tracking-wider"
                     >
-                      Clear All
+                      Hapus Semua
                     </button>
                   )}
                 </div>
@@ -173,7 +173,7 @@ export default function Header({ onTabChange, activeTab, unreadMessagesCount, ac
                       <p className="text-xs text-[#1A1A1A]/80 line-clamp-2 leading-tight py-1">{n.text}</p>
                       {!n.read && (
                         <div className="flex items-center gap-1 mt-0.5 text-[9px] font-mono font-bold uppercase text-[#FF3E00]">
-                          <span className="w-1.5 h-1.5 bg-[#FF3E00] inline-block" /> Active Alert
+                          <span className="w-1.5 h-1.5 bg-[#FF3E00] inline-block" /> Peringatan Aktif
                         </div>
                       )}
                     </div>

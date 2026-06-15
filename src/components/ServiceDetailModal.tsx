@@ -16,13 +16,13 @@ interface ServiceDetailModalProps {
 
 export default function ServiceDetailModal({ service, onClose, onHire, onMessageSeller }: ServiceDetailModalProps) {
   // Mock points included in this peer skill-share
-  const features = service.category === 'Coding' 
-    ? ['High-quality annotated code delivery', 'Live walkthrough or Zoom calibration', 'Includes source files and environment setups', '2 structural revisions included']
-    : service.category === 'Writing'
-    ? ['Plagiarism report declaration', 'APA/MLA/Harvard alignment', 'Grammar formatting & tone check', 'Complete outline draft pre-review']
-    : service.category === 'Design'
-    ? ['Fully layered Figma file access', 'Interactive desktop or mobile clickable prototypes', 'Asset exports (PNG, SVG, PDFs)', 'Typography & color guides included']
-    : ['Interactive step-by-step guidance', 'Sample midterms and review sheets', 'Concept simplified explanations', 'Video recording summary of the review'];
+  const features = service.category === 'Pemrograman' 
+    ? ['Pengiriman kode beranotasi berkualitas tinggi', 'Panduan langsung atau kalibrasi Zoom', 'Termasuk file sumber dan pengaturan lingkungan', '2 revisi struktural termasuk']
+    : service.category === 'Menulis'
+    ? ['Laporan pemeriksaan plagiarisme', 'Penyesuaian APA/MLA/Harvard', 'Pemeriksaan tata bahasa, format & nada', 'Draf kerangka lengkap pra-review']
+    : service.category === 'Desain'
+    ? ['Akses file Figma berlapis penuh', 'Prototipe desktop/mobile interaktif', 'Ekspor aset (PNG, SVG, PDF)', 'Panduan tipografi & warna termasuk']
+    : ['Panduan interaktif langkah demi langkah', 'Contoh UTS dan lembar review', 'Penjelasan konsep yang disederhanakan', 'Rekaman video ringkasan review'];
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -51,7 +51,7 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
                 type="button" 
                 onClick={onClose}
                 className="absolute top-4 right-4 bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FF3E00] hover:text-white p-2 cursor-pointer transition-colors"
-                title="Close"
+                title="Tutup"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -97,14 +97,14 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
                   <div className="w-1 h-1 bg-[#1A1A1A] rounded-none" />
                   <span className="flex items-center gap-1">
                     <ShieldCheck className="w-4 h-4 text-[#FF3E00]" />
-                    <span className="text-[#1A1A1A]">VERIFIED PEER</span>
+                    <span className="text-[#1A1A1A]">TERVERIFIKASI</span>
                   </span>
                 </div>
               </div>
 
               {/* Service Description */}
               <div className="space-y-3">
-                <h4 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-widest border-b-2 border-[#1A1A1A] pb-1">About This Skill Swap</h4>
+                <h4 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-widest border-b-2 border-[#1A1A1A] pb-1">Tentang Skill Kampus Ini</h4>
                 <p className="text-[#1A1A1A]/80 text-sm leading-relaxed whitespace-pre-line font-sans font-medium">
                   {service.description}
                 </p>
@@ -112,7 +112,7 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
 
               {/* What is Included Bullet List */}
               <div className="space-y-3 pt-2">
-                <h4 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-widest border-b-2 border-[#1A1A1A] pb-1">What is Included</h4>
+                <h4 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-widest border-b-2 border-[#1A1A1A] pb-1">Yang Termasuk</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {features.map((feat, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs text-[#1A1A1A]/85 font-mono uppercase font-bold leading-normal">
@@ -127,9 +127,9 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
               <div className="border-2 border-[#1A1A1A] bg-white p-4 flex items-start gap-3 shadow-[3px_3px_0px_#1A1A1A]">
                 <Calendar className="w-6 h-6 text-[#FF3E00] shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-wider">Dynamic Scheduling Contract</h5>
+                  <h5 className="font-extrabold text-[#1A1A1A] text-xs font-mono uppercase tracking-wider">Kontrak Penjadwalan Dinamis</h5>
                   <p className="text-[10px] text-[#1A1A1A]/70 uppercase tracking-wide font-mono mt-0.5 leading-relaxed">
-                    Your classmate guarantees a tentative delivery timeline. Payments remain escrowed securely until final receipt.
+                    Teman sekelas Anda menjamin jadwal pengiriman tentatif. Pembayaran tetap diamankan dalam escrow hingga tanda terima akhir.
                   </p>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
           {/* Fixed bottom interactive drawer bar */}
           <div className="absolute bottom-0 left-0 w-full bg-[#F4F1EA] border-t-2 border-[#1A1A1A] px-6 py-4 flex justify-between items-center z-10 gap-3">
             <div className="flex flex-col text-left">
-              <span className="text-[9px] uppercase font-bold text-[#1A1A1A]/60 tracking-widest font-mono">Exchange Rate</span>
+              <span className="text-[9px] uppercase font-bold text-[#1A1A1A]/60 tracking-widest font-mono">Harga</span>
               <span className="text-2xl font-extrabold font-mono text-[#FF3E00] leading-none">${service.price.toFixed(2)}</span>
             </div>
 
@@ -150,7 +150,7 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
                 className="px-4 py-3 border-2 border-[#1A1A1A] bg-white hover:bg-[#F4F1EA] text-[#1A1A1A] font-extrabold text-xs uppercase tracking-widest font-mono transition-colors cursor-pointer"
               >
                 <Mail className="w-4 h-4 inline mr-1" />
-                <span>Message</span>
+                <span>Pesan</span>
               </button>
 
               <button 
@@ -159,7 +159,7 @@ export default function ServiceDetailModal({ service, onClose, onHire, onMessage
                 className="px-6 py-3 bg-[#FF3E00] text-white border-2 border-[#1A1A1A] hover:bg-black font-extrabold text-xs uppercase tracking-widest font-mono transition-colors cursor-pointer shadow-[3px_3px_0px_#1A1A1A]"
               >
                 <MessageSquare className="w-4 h-4 inline mr-1" />
-                <span>Book Service</span>
+                <span>Pesan Layanan</span>
               </button>
             </div>
           </div>

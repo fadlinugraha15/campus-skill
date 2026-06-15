@@ -42,7 +42,7 @@ export default function ProfileTab({
     userProfile.name = profileNameInput;
     userProfile.university = profileUniInput;
     userProfile.bio = profileBioInput;
-    alert('Profile settings saved successfully!');
+    alert('Pengaturan profil berhasil disimpan!');
     setActiveDialog(null);
   };
 
@@ -50,7 +50,7 @@ export default function ProfileTab({
     const amt = parseFloat(walletDepositAmount);
     if (isNaN(amt) || amt <= 0) return;
     userProfile.balance += amt;
-    alert(`Successfully deposited $${amt.toFixed(2)} to your campus escrow wallet!`);
+    alert(`Berhasil deposit $${amt.toFixed(2)} ke dompet escrow kampus Anda!`);
     setWalletDepositAmount('50');
   };
 
@@ -70,7 +70,7 @@ export default function ProfileTab({
             type="button" 
             onClick={() => setActiveDialog('settings')}
             className="absolute -bottom-1 -right-1 bg-[#FF3E00] text-white p-2 rounded-none border border-[#1A1A1A] shadow-none cursor-pointer hover:bg-black active:scale-90 transition-transform"
-            title="Edit Profile"
+            title="Edit Profil"
           >
             <Edit2 className="w-4 h-4 text-white" />
           </button>
@@ -94,7 +94,7 @@ export default function ProfileTab({
       <section className="grid grid-cols-3 gap-0 bg-white border-2 border-[#1A1A1A] divide-x-2 divide-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A]">
         <div className="flex flex-col items-center justify-center p-3">
           <span className="font-extrabold text-lg md:text-xl text-[#FF3E00] font-mono tracking-tight">{userProfile.servicesSold}</span>
-          <span className="text-[8px] font-bold text-[#1A1A1A] uppercase tracking-widest mt-1 text-center font-mono">Services Sold</span>
+                  <span className="text-[8px] font-bold text-[#1A1A1A] uppercase tracking-widest mt-1 text-center font-mono">Layanan Terjual</span>
         </div>
         <div className="flex flex-col items-center justify-center p-3">
           <div className="flex items-center gap-1 text-[#1A1A1A] font-extrabold font-mono">
@@ -105,7 +105,7 @@ export default function ProfileTab({
         </div>
         <div className="flex flex-col items-center justify-center p-3">
           <span className="font-extrabold text-lg md:text-xl text-[#1A1A1A] font-mono tracking-tight">${userProfile.earnings.toFixed(0)}</span>
-          <span className="text-[8px] font-bold text-[#1A1A1A] uppercase tracking-widest mt-1 text-center font-mono">Earnings</span>
+          <span className="text-[8px] font-bold text-[#1A1A1A] uppercase tracking-widest mt-1 text-center font-mono">Penghasilan</span>
         </div>
       </section>
 
@@ -122,8 +122,8 @@ export default function ProfileTab({
               <Store className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="font-bold text-xs uppercase tracking-widest font-mono">Become a Seller</p>
-              <p className="text-[9px] text-white/80 font-mono mt-0.5 leading-none font-bold uppercase">Publish your specs list</p>
+              <p className="font-bold text-xs uppercase tracking-widest font-mono">Jadi Penjual</p>
+              <p className="text-[9px] text-white/80 font-mono mt-0.5 leading-none font-bold uppercase">Publikasi daftar spesifikasi Anda</p>
             </div>
           </div>
           <ChevronRight className="w-5 h-5 text-white shrink-0" />
@@ -139,7 +139,7 @@ export default function ProfileTab({
           >
             <div className="flex items-center gap-3">
               <List className="w-5 h-5 text-[#FF3E00] shrink-0" />
-              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">My Offered Services</span>
+              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Layanan Saya</span>
               <span className="text-[10px] bg-[#1A1A1A] text-white font-mono px-2 py-0.5 font-bold uppercase">
                 {jordyServices.length}
               </span>
@@ -156,8 +156,8 @@ export default function ProfileTab({
             <div className="flex items-center gap-3">
               <Wallet className="w-5 h-5 text-[#FF3E00] shrink-0" />
               <div className="flex flex-col text-left">
-                <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Wallet &amp; Payments</span>
-                <span className="text-[9px] text-[#FF3E00] font-bold font-mono mt-1 uppercase">Escrow Balance: ${userProfile.balance.toFixed(2)}</span>
+                <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Dompet &amp; Pembayaran</span>
+                <span className="text-[9px] text-[#FF3E00] font-bold font-mono mt-1 uppercase">Saldo Escrow: ${userProfile.balance.toFixed(2)}</span>
               </div>
             </div>
             <ChevronRight className="w-4 h-4 text-[#1A1A1A] group-hover:translate-x-1 transition-transform" />
@@ -171,7 +171,7 @@ export default function ProfileTab({
           >
             <div className="flex items-center gap-3">
               <SettingsIcon className="w-5 h-5 text-[#FF3E00] shrink-0" />
-              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Profile Customizations</span>
+              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Kustomisasi Profil</span>
             </div>
             <ChevronRight className="w-4 h-4 text-[#1A1A1A] group-hover:translate-x-1 transition-transform" />
           </button>
@@ -184,7 +184,7 @@ export default function ProfileTab({
           >
             <div className="flex items-center gap-3">
               <HelpCircle className="w-5 h-5 text-[#FF3E00] shrink-0" />
-              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Help &amp; Peer Guide Support</span>
+              <span className="text-[#1A1A1A] font-bold uppercase tracking-widest font-mono text-xs">Bantuan &amp; Dukungan</span>
             </div>
             <ChevronRight className="w-4 h-4 text-[#1A1A1A] group-hover:translate-x-1 transition-transform" />
           </button>
@@ -197,7 +197,7 @@ export default function ProfileTab({
           className="w-full mt-6 py-4 px-5 flex items-center justify-center gap-2 text-white border-2 border-[#1A1A1A] bg-[#1A1A1A] hover:bg-[#FF3E00] transition-all duration-150 leading-none cursor-pointer text-xs font-bold uppercase tracking-widest font-mono"
         >
           <LogOut className="w-4 h-4" />
-          <span>Logout</span>
+          <span>Keluar</span>
         </button>
       </div>
 
@@ -207,19 +207,19 @@ export default function ProfileTab({
           <div className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm" onClick={() => setActiveDialog(null)} />
           <div className="relative w-full max-w-md bg-[#F4F1EA] border-2 border-[#1A1A1A] p-6 shadow-none max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4 border-b-2 border-[#1A1A1A] pb-2">
-              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">My Skill Listings</h3>
+              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Listing Skill Saya</h3>
               <button type="button" onClick={() => setActiveDialog(null)} className="text-[#1A1A1A] hover:text-[#FF3E00] p-1"><X className="w-4 h-4" /></button>
             </div>
             <div className="space-y-3">
               {jordyServices.length === 0 ? (
                 <div className="text-center py-8 text-[#1A1A1A]/60">
-                  <p className="text-xs uppercase font-mono tracking-widest">You haven't listed any services yet.</p>
+                  <p className="text-xs uppercase font-mono tracking-widest">Anda belum mendaftarkan layanan apapun.</p>
                   <button 
                     type="button"
                     onClick={() => { setActiveDialog(null); onOpenCreateServiceModal(); }}
                     className="mt-4 text-xs text-[#FF3E00] font-bold flex items-center gap-1.5 mx-auto uppercase tracking-wide hover:underline font-mono"
                   >
-                    <PlusCircle className="w-4 h-4" /> Publish new peer listing
+                    <PlusCircle className="w-4 h-4" /> Publikasi listing baru
                   </button>
                 </div>
               ) : (
@@ -234,7 +234,7 @@ export default function ProfileTab({
                       type="button" 
                       onClick={() => onDeleteService(s.id)}
                       className="p-2 text-[#1A1A1A] hover:text-[#FF3E00] cursor-pointer"
-                      title="Delete offered listing"
+                      title="Hapus listing"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -252,17 +252,17 @@ export default function ProfileTab({
           <div className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm" onClick={() => setActiveDialog(null)} />
           <div className="relative w-full max-w-sm bg-[#F4F1EA] border-2 border-[#1A1A1A] p-6 shadow-none">
             <div className="flex justify-between items-center mb-4 border-b-2 border-[#1A1A1A] pb-2">
-              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Escrow Wallet</h3>
+              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Dompet Escrow</h3>
               <button type="button" onClick={() => setActiveDialog(null)} className="text-[#1A1A1A] hover:text-[#FF3E00] p-1"><X className="w-4 h-4" /></button>
             </div>
             <div className="space-y-4 text-center">
               <div className="bg-[#1A1A1A] p-5 border-2 border-[#1A1A1A] text-white">
-                <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest font-mono block">Available Escrow Balance</span>
+                <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest font-mono block">Saldo Escrow Tersedia</span>
                 <p className="text-3xl font-extrabold font-mono tracking-tighter mt-2 text-[#FF3E00]">${userProfile.balance.toFixed(2)}</p>
               </div>
 
               <div className="space-y-2 pt-2 text-left">
-                <label className="block text-[9px] font-bold text-[#1A1A1A] uppercase tracking-widest font-mono">Simulate Balance Refill</label>
+                <label className="block text-[9px] font-bold text-[#1A1A1A] uppercase tracking-widest font-mono">Simulasi Isi Ulang Saldo</label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1A1A1A] font-bold font-mono">$</span>
@@ -278,7 +278,7 @@ export default function ProfileTab({
                     onClick={handleDeposit}
                     className="px-4 py-2 bg-[#FF3E00] text-white font-mono font-bold text-xs uppercase tracking-wider border-2 border-[#1A1A1A] hover:bg-black transition-colors"
                   >
-                    Add
+                    Tambah
                   </button>
                 </div>
               </div>
@@ -293,12 +293,12 @@ export default function ProfileTab({
           <div className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm" onClick={() => setActiveDialog(null)} />
           <div className="relative w-full max-w-md bg-[#F4F1EA] border-2 border-[#1A1A1A] p-6 shadow-none">
             <div className="flex justify-between items-center mb-4 border-b-2 border-[#1A1A1A] pb-2">
-              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Configure Settings</h3>
+              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Konfigurasi Pengaturan</h3>
               <button type="button" onClick={() => setActiveDialog(null)} className="text-[#1A1A1A] hover:text-[#FF3E00] p-1"><X className="w-4 h-4" /></button>
             </div>
             <form onSubmit={handleSettingsSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">Full Name</label>
+                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">Nama Lengkap</label>
                 <input 
                   type="text" 
                   value={profileNameInput}
@@ -307,7 +307,7 @@ export default function ProfileTab({
                 />
               </div>
               <div className="space-y-1">
-                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">University / Affiliation</label>
+                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">Universitas / Afiliasi</label>
                 <input 
                   type="text" 
                   value={profileUniInput}
@@ -316,7 +316,7 @@ export default function ProfileTab({
                 />
               </div>
               <div className="space-y-1">
-                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">Profile Bio Quote</label>
+                <label className="block text-[9px] font-mono font-bold text-[#1A1A1A] uppercase tracking-widest">Bio Profil</label>
                 <textarea 
                   value={profileBioInput}
                   onChange={(e) => setProfileBioInput(e.target.value)}
@@ -328,7 +328,7 @@ export default function ProfileTab({
                 type="submit" 
                 className="w-full py-3 bg-[#FF3E00] text-white font-mono font-bold text-xs uppercase tracking-widest border-2 border-[#1A1A1A] hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_#1A1A1A]"
               >
-                Save Settings
+                Simpan Pengaturan
               </button>
             </form>
           </div>
@@ -341,26 +341,26 @@ export default function ProfileTab({
           <div className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm" onClick={() => setActiveDialog(null)} />
           <div className="relative w-full max-w-md bg-[#F4F1EA] border-2 border-[#1A1A1A] p-6 shadow-none max-h-[85vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4 border-b-2 border-[#1A1A1A] pb-2">
-              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">FAQ Guide &amp; Support</h3>
+              <h3 className="font-extrabold text-[#1A1A1A] text-xs uppercase tracking-wider font-mono">Panduan FAQ &amp; Dukungan</h3>
               <button type="button" onClick={() => setActiveDialog(null)} className="text-[#1A1A1A] hover:text-[#FF3E00] p-1"><X className="w-4 h-4" /></button>
             </div>
             <div className="space-y-4 text-xs leading-relaxed text-[#1A1A1A]">
               <div className="p-4 bg-white border-2 border-[#1A1A1A]">
-                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">What is campus escrow protection?</strong>
+                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">Apa itu perlindungan escrow kampus?</strong>
                 <p className="mt-1 font-normal leading-normal uppercase text-[10px] font-mono text-[#1A1A1A]/80">
-                  Payments are locked in escrow when booking. They are only released to the student seller once you confirm file receipt in the Orders tab.
+                  Pembayaran dikunci di escrow saat pemesanan. Dana hanya akan dirilis ke penjual setelah Anda mengonfirmasi penerimaan file di tab Pesanan.
                 </p>
               </div>
               <div className="p-4 bg-white border-2 border-[#1A1A1A]">
-                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">How do I start selling skills?</strong>
+                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">Bagaimana cara mulai menjual skill?</strong>
                 <p className="mt-1 font-normal leading-normal uppercase text-[10px] font-mono text-[#1A1A1A]/80">
-                  Simply click "Become a Seller" or "+" on the mobile screen, fill out your pricing, specifications, and cover photo, and hit Publish!
+                  Cukup klik "Jadi Penjual" atau "+" di layar ponsel, isi harga, spesifikasi, dan foto sampul, lalu tekan Terbitkan!
                 </p>
               </div>
               <div className="p-4 bg-white border-2 border-[#1A1A1A]">
-                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">Can I tutor classmates in science/advanced maths?</strong>
+                <strong className="block text-xs font-extrabold uppercase font-mono tracking-wider text-[#FF3E00]">Bisakah saya mengajar teman di sains/matematika?</strong>
                 <p className="mt-1 font-normal leading-normal uppercase text-[10px] font-mono text-[#1A1A1A]/80">
-                  Yes, SkillSwap is built exactly for peer tutoring, scripts debugging, translation essays, presentation checkups, and brand prototypes!
+                  Ya, Campus Skill dibangun khusus untuk bimbingan teman, debugging skrip, terjemahan esai, pemeriksaan presentasi, dan purwarupa merek!
                 </p>
               </div>
             </div>

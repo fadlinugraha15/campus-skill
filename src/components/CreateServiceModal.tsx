@@ -1,5 +1,5 @@
 /**
- * @license
+ * @licenseçç
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -22,7 +22,7 @@ const SAMPLE_IMAGES = [
 
 export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceModalProps) {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState<ServiceCategory>('All');
+  const [category, setCategory] = useState<ServiceCategory>('Semua');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('20');
   const [imageUrl, setImageUrl] = useState(SAMPLE_IMAGES[0].url);
@@ -74,21 +74,21 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
     e.preventDefault();
     
     if (!title.trim()) {
-      setErrorText('Please specify a title for your service!');
+      setErrorText('Harap masukkan judul untuk layanan Anda!');
       return;
     }
-    if (category === 'All') {
-      setErrorText('Please select a specific category (e.g. Coding, Design)!');
+    if (category === 'Semua') {
+      setErrorText('Silakan pilih kategori spesifik (mis. Pemrograman, Desain)!');
       return;
     }
     if (description.trim().length < 15) {
-      setErrorText('Service description should be at least 15 characters, outline what you will offer!');
+      setErrorText('Deskripsi layanan minimal 15 karakter, jelaskan apa yang Anda tawarkan!');
       return;
     }
     
     const parsedPrice = parseFloat(price);
     if (isNaN(parsedPrice) || parsedPrice <= 0) {
-      setErrorText('Please input a valid positive price amount!');
+      setErrorText('Harap masukkan jumlah harga yang valid dan positif!');
       return;
     }
 
@@ -119,7 +119,7 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
         <div className="px-6 py-4 border-b-2 border-[#1A1A1A] flex justify-between items-center bg-[#F4F1EA]">
           <div className="flex items-center gap-1.5 text-[#1A1A1A]">
             <Sparkles className="w-5 h-5 text-[#FF3E00]" />
-            <h3 className="font-extrabold text-[#1A1A1A] text-sm uppercase tracking-wider font-mono">Monetize Your Skills</h3>
+            <h3 className="font-extrabold text-[#1A1A1A] text-sm uppercase tracking-wider font-mono">Monetisasi Skill-mu</h3>
           </div>
           <button 
             type="button" 
@@ -135,9 +135,9 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
             <div className="w-16 h-16 bg-white border-2 border-[#1A1A1A] flex items-center justify-center text-[#FF3E00] animate-bounce">
               <CheckCircle className="w-10 h-10" />
             </div>
-            <h4 className="font-extrabold text-[#1A1A1A] text-base font-mono uppercase tracking-widest">Service Published!</h4>
+            <h4 className="font-extrabold text-[#1A1A1A] text-base font-mono uppercase tracking-widest">Layanan Diterbitkan!</h4>
             <p className="text-[#1A1A1A]/75 text-xs max-w-sm font-mono uppercase leading-relaxed">
-              Your academic peer listing is now visible across the network. Let’s prepare for incoming collaboration requests!
+              Listing akademik Anda sekarang terlihat di seluruh jaringan. Mari bersiap untuk permintaan kolaborasi masuk!
             </p>
           </div>
         ) : (
@@ -151,12 +151,12 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
 
             {/* Title Entry */}
             <div className="space-y-1">
-              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Service Title</label>
+              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Judul Layanan</label>
               <input 
                 type="text"
                 value={title}
                 onChange={(e) => { setTitle(e.target.value); setErrorText(''); }}
-                placeholder="e.g., Advanced Calculus Tutoring, Python Data Sci Homework"
+                placeholder="Mis: Bimbingan Kalkulus, Tugas Data Sains Python"
                 className="w-full px-4 py-3 bg-[#F4F1EA]/50 border-2 border-[#1A1A1A] text-xs font-mono uppercase tracking-wide text-[#1A1A1A] focus:bg-white outline-none transition-all placeholder-[#1A1A1A]/40 rounded-none focus:shadow-[2px_2px_0px_#1A1A1A]"
               />
             </div>
@@ -164,24 +164,24 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
             {/* Category & Pricing Board */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Category</label>
+                <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Kategori</label>
                 <select 
                   value={category}
                   onChange={(e) => { setCategory(e.target.value as ServiceCategory); setErrorText(''); }}
                   className="w-full px-4 py-3 bg-[#F4F1EA]/50 border-2 border-[#1A1A1A] text-xs font-mono uppercase tracking-wide text-[#1A1A1A] focus:bg-white outline-none cursor-pointer rounded-none"
                 >
-                  <option value="All">Select...</option>
-                  <option value="Coding">Coding</option>
-                  <option value="Writing">Writing</option>
-                  <option value="Design">Design</option>
-                  <option value="Tutoring">Tutoring</option>
-                  <option value="Business">Business</option>
-                  <option value="Language">Language</option>
+                  <option value="Semua">Pilih...</option>
+                  <option value="Pemrograman">Pemrograman</option>
+                  <option value="Menulis">Menulis</option>
+                  <option value="Desain">Desain</option>
+                  <option value="Bimbingan">Bimbingan</option>
+                  <option value="Bisnis">Bisnis</option>
+                  <option value="Bahasa">Bahasa</option>
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Price (USD)</label>
+                <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Harga (USD)</label>
                 <div className="relative">
                   <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#1A1A1A]/60 font-bold text-xs font-mono">$</span>
                   <input 
@@ -197,11 +197,11 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
 
             {/* Description Body */}
             <div className="space-y-1">
-              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Description</label>
+              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Deskripsi</label>
               <textarea 
                 value={description}
                 onChange={(e) => { setDescription(e.target.value); setErrorText(''); }}
-                placeholder="List what assignments or projects your peers will accomplish, any timeline details, and your skills..."
+                placeholder="Sebutkan tugas atau proyek yang akan diselesaikan, detail timeline, dan keahlian Anda..."
                 rows={3}
                 className="w-full px-4 py-3 bg-[#F4F1EA]/50 border-2 border-[#1A1A1A] text-xs font-mono uppercase tracking-wide text-[#1A1A1A] focus:bg-white outline-none transition-all placeholder-[#1A1A1A]/40 rounded-none focus:shadow-[2px_2px_0px_#1A1A1A]"
               />
@@ -209,12 +209,12 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
 
             {/* Banner Background selector */}
             <div className="space-y-2">
-              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Display Banner Image</label>
+              <label className="block text-[10px] font-bold text-[#1A1A1A]/60 uppercase tracking-widest font-mono">Gambar Banner</label>
               
               {/* Hotlink Image preview */}
               <div className="h-28 w-full border-2 border-[#1A1A1A] overflow-hidden bg-[#F4F1EA] relative rounded-none">
                 <img 
-                  alt="Banner preview" 
+                  alt="Pratinjau Banner" 
                   className="w-full h-full object-cover" 
                   src={imageUrl} 
                 />
@@ -249,7 +249,7 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
                 <div className="flex flex-col items-center gap-1.5">
                   <ImageIcon className="w-6 h-6 text-[#1A1A1A]" />
                   <p className="text-[10px] font-mono text-[#1A1A1A] uppercase tracking-wide">
-                    Drag & drop or <span className="text-[#FF3E00] font-bold underline">browse files</span> to upload custom card
+                    Seret & lepas atau <span className="text-[#FF3E00] font-bold underline">cari file</span> untuk unggah gambar kustom
                   </p>
                 </div>
               </div>
@@ -262,14 +262,14 @@ export default function CreateServiceModal({ onClose, onSubmit }: CreateServiceM
                 onClick={onClose}
                 className="px-4 py-2.5 bg-white border-2 border-[#1A1A1A] hover:bg-[#F4F1EA] text-[#1A1A1A] font-mono font-bold text-xs uppercase tracking-widest rounded-none transition-colors cursor-pointer"
               >
-                Cancel
+                Batal
               </button>
               <button 
                 type="submit"
                 className="px-5 py-2.5 bg-[#FF3E00] text-white border-2 border-[#1A1A1A] font-mono font-bold text-xs uppercase tracking-widest rounded-none transition-colors hover:bg-black cursor-pointer shadow-[2px_2px_0px_#1A1A1A]"
               >
                 <Send className="w-3.5 h-3.5 inline mr-1" />
-                <span>Publish Listing</span>
+                <span>Terbitkan Listing</span>
               </button>
             </div>
           </form>

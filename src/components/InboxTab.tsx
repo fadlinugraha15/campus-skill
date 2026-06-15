@@ -54,13 +54,13 @@ export default function InboxTab({
     const peerName = activeThread.participantName;
     
     setTimeout(() => {
-      let replyWord = "That sounds perfect! Let's lock that schedule in. See you on the library third floor.";
+      let replyWord = "Kedengarannya sempurna! Mari kunci jadwal itu. Sampai jumpa di lantai tiga perpustakaan.";
       if (peerName.includes('David')) {
-        replyWord = "Glad you approved! I will update the repo and merge the pull request.";
+        replyWord = "Senang Anda setuju! Saya akan memperbarui repo dan menggabungkan pull request.";
       } else if (peerName.includes('Elena')) {
-        replyWord = "Great, let me know if you want to review the macroeconomics formulas again.";
+        replyWord = "Bagus, beri tahu saya jika Anda ingin mereview rumus makroekonomi lagi.";
       } else if (peerName.includes('Marcus')) {
-        replyWord = "Awesome, let me know when you sign the contract, and let’s start the Chemistry syllabus!";
+        replyWord = "Hebat, beri tahu saya saat Anda menandatangani kontrak, dan mari mulai silabus Kimia!";
       }
 
       onSendMessage(threadIdToSend, replyWord);
@@ -78,7 +78,7 @@ export default function InboxTab({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search conversations..."
+            placeholder="Cari percakapan..."
             className="w-full pl-11 pr-4 py-3 bg-white border-2 border-[#1A1A1A] focus:border-[#FF3E00] focus:shadow-[2px_2px_0px_#1A1A1A] outline-none text-xs font-mono uppercase tracking-wider text-[#1A1A1A] transition-all placeholder-[#1A1A1A]/40 rounded-none"
           />
         </div>
@@ -87,7 +87,7 @@ export default function InboxTab({
         <div className="flex-1 overflow-y-auto space-y-2 pr-1 max-h-[300px] md:max-h-full">
           {filteredThreads.length === 0 ? (
             <div className="text-center py-10 bg-white border-2 border-[#1A1A1A] rounded-none">
-              <p className="text-xs text-[#1A1A1A] font-mono font-bold uppercase tracking-wider">No contacts matched</p>
+              <p className="text-xs text-[#1A1A1A] font-mono font-bold uppercase tracking-wider">Tidak ada kontak yang cocok</p>
             </div>
           ) : (
             filteredThreads.map((thread) => {
@@ -161,25 +161,25 @@ export default function InboxTab({
               <div className="flex gap-2">
                 <button 
                   type="button" 
-                  onClick={() => alert(`Calling ${activeThread.participantName}...\nVideo feeds will configure on camera approvals.`)}
+                  onClick={() => alert(`Memanggil ${activeThread.participantName}...\nUmpan video akan dikonfigurasi setelah izin kamera.`)}
                   className="p-1.5 text-[#1A1A1A] hover:text-[#FF3E00] border border-transparent hover:border-[#1A1A1A] rounded-none transition-all cursor-pointer bg-white"
-                  title="Video Call"
+                  title="Panggilan Video"
                 >
                   <Video className="w-4 h-4" />
                 </button>
                 <button 
                   type="button" 
-                  onClick={() => alert(`Connecting voice link to ${activeThread.participantName}...`)}
+                  onClick={() => alert(`Menghubungkan panggilan suara ke ${activeThread.participantName}...`)}
                   className="p-1.5 text-[#1A1A1A] hover:text-[#FF3E00] border border-transparent hover:border-[#1A1A1A] rounded-none transition-all cursor-pointer bg-white"
-                  title="Audio Call"
+                  title="Panggilan Suara"
                 >
                   <Phone className="w-4 h-4" />
                 </button>
                 <button 
                   type="button" 
-                  onClick={() => alert('Option selections: Clear Chat history, Report User, View Contract details.')}
+                  onClick={() => alert('Pilihan: Hapus Riwayat Chat, Laporkan Pengguna, Lihat Detail Kontrak.')}
                   className="p-1.5 text-[#1A1A1A]/60 hover:text-red-650 transition-all cursor-pointer"
-                  title="More Options"
+                  title="Opsi Lainnya"
                 >
                   <MoreVertical className="w-4 h-4" />
                 </button>
@@ -190,7 +190,7 @@ export default function InboxTab({
             <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-[#F4F1EA]/30 space-y-4">
               <div className="flex justify-center my-3">
                 <span className="px-3 py-1 bg-white border border-[#1A1A1A] font-mono text-[9px] text-[#1A1A1A]/80 font-bold uppercase tracking-widest">
-                  TODAY
+                  HARI INI
                 </span>
               </div>
 
@@ -229,9 +229,9 @@ export default function InboxTab({
               <div className="flex items-center gap-2 bg-white border-2 border-[#1A1A1A] p-2 rounded-none focus-within:shadow-[3px_3px_0px_#1A1A1A] transition-all">
                 <button 
                   type="button" 
-                  onClick={() => alert('Attachments: Share screenshot logs, essays, or ZIP files of scripts.')}
+                  onClick={() => alert('Lampiran: Bagikan screenshot, esai, atau file ZIP skrip.')}
                   className="p-1.5 text-[#1A1A1A] hover:text-[#FF3E00] transition-colors cursor-pointer"
-                  title="Upload Attachment"
+                  title="Unggah Lampiran"
                 >
                   <PlusCircle className="w-5 h-5" />
                 </button>
@@ -239,14 +239,14 @@ export default function InboxTab({
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type your message..."
+                  placeholder="Ketik pesan Anda..."
                   className="flex-1 bg-transparent border-none outline-none text-xs font-mono uppercase tracking-wide text-[#1A1A1A] py-2 placeholder-[#1A1A1A]/40"
                 />
                 <button 
                   type="submit"
                   disabled={!inputText.trim()}
                   className="p-3 bg-[#FF3E00] text-white border-2 border-[#1A1A1A] hover:bg-black transition-all active:scale-95 disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-350 cursor-pointer shadow-none"
-                  title="Send Message"
+                  title="Kirim Pesan"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -255,7 +255,7 @@ export default function InboxTab({
           </>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-gray-500">
-            <p className="font-extrabold text-xs uppercase tracking-widest font-mono text-[#1A1A1A]">Select a classmate conversation to read exchange</p>
+            <p className="font-extrabold text-xs uppercase tracking-widest font-mono text-[#1A1A1A]">Pilih percakapan teman sekelas untuk membaca pertukaran</p>
           </div>
         )}
       </div>

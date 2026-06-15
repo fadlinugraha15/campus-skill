@@ -68,7 +68,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onClick }) => {
 
         {/* Pricing Area */}
         <div className="mt-4 pt-4 border-t border-[#1A1A1A]/20 flex justify-between items-center text-sm">
-          <span className="text-[9px] text-[#1A1A1A]/50 font-bold tracking-widest uppercase font-mono">Starting at</span>
+          <span className="text-[9px] text-[#1A1A1A]/50 font-bold tracking-widest uppercase font-mono">Mulai dari</span>
           <span className="text-lg font-bold text-[#1A1A1A] font-mono tracking-tight group-hover:text-[#FF3E00]">
             ${service.price.toFixed(2)}
           </span>

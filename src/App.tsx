@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
-import { Sparkles, GraduationCap, ArrowRight, RefreshCw, KeyRound, AlertCircle } from 'lucide-react';
+import { useState, useEffect, useCallback, type MouseEvent } from 'react';
+import { motion } from 'motion/react';
+import { Sparkles } from 'lucide-react';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import HomeTab from './components/HomeTab';
@@ -13,8 +14,9 @@ import InboxTab from './components/InboxTab';
 import ProfileTab from './components/ProfileTab';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import CreateServiceModal from './components/CreateServiceModal';
+import AuthPage from './components/AuthPage';
 
-import { Service, Order, ChatThread, UserProfile, OrderStatus } from './types';
+import { Service, Order, ChatThread, UserProfile, OrderStatus, ServiceCategory } from './types';
 import { initialUserProfile, initialServices, initialOrders, initialChatThreads } from './data';
 
 export default function App() {
@@ -34,14 +36,30 @@ export default function App() {
   const [toastType, setToastType] = useState<'success' | 'info'>('success');
   const [activeThreadId, setActiveThreadId] = useState<string>('th-1');
 
+  // Parallax mouse tracking
+  const [parallaxMouse, setParallaxMouse] = useState({ x: 0.5, y: 0.5 });
+
+  const handleParallaxMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setParallaxMouse({
+      x: (e.clientX - rect.left) / rect.width,
+      y: (e.clientY - rect.top) / rect.height,
+    });
+  }, []);
+
+  const parallaxLayer = (depth: number) => ({
+    x: (parallaxMouse.x - 0.5) * depth,
+    y: (parallaxMouse.y - 0.5) * depth,
+  });
+
   // Load from local storage
   useEffect(() => {
     try {
-      const storedProfile = localStorage.getItem('skillswap_profile');
-      const storedServices = localStorage.getItem('skillswap_services');
-      const storedOrders = localStorage.getItem('skillswap_orders');
-      const storedThreads = localStorage.getItem('skillswap_threads');
-      const storedLoggedOut = localStorage.getItem('skillswap_loggedout');
+      const storedProfile = localStorage.getItem('campusskill_profile');
+      const storedServices = localStorage.getItem('campusskill_services');
+      const storedOrders = localStorage.getItem('campusskill_orders');
+      const storedThreads = localStorage.getItem('campusskill_threads');
+      const storedLoggedOut = localStorage.getItem('campusskill_loggedout');
 
       if (storedProfile) setUserProfile(JSON.parse(storedProfile));
       if (storedServices) setServices(JSON.parse(storedServices));
@@ -65,10 +83,10 @@ export default function App() {
     threads: ChatThread[]
   ) => {
     try {
-      localStorage.setItem('skillswap_profile', JSON.stringify(profile));
-      localStorage.setItem('skillswap_services', JSON.stringify(servs));
-      localStorage.setItem('skillswap_orders', JSON.stringify(ords));
-      localStorage.setItem('skillswap_threads', JSON.stringify(threads));
+      localStorage.setItem('campusskill_profile', JSON.stringify(profile));
+      localStorage.setItem('campusskill_services', JSON.stringify(servs));
+      localStorage.setItem('campusskill_orders', JSON.stringify(ords));
+      localStorage.setItem('campusskill_threads', JSON.stringify(threads));
     } catch (e) {
       console.error("Local storage save failed", e);
     }
@@ -86,7 +104,7 @@ export default function App() {
   const handleHireService = (service: Service) => {
     // Check if user has sufficient escrow balance
     if (userProfile.balance < service.price) {
-      triggerToast(`Insufficient campus wallet funds! Please load balance in profile tab.`, 'info');
+      triggerToast('Saldo dompet kampus tidak mencukupi! Silakan isi ulang di tab profil.', 'info');
       setSelectedService(null);
       return;
     }
@@ -106,11 +124,11 @@ export default function App() {
       serviceImage: service.image,
       sellerName: service.seller.name,
       sellerAvatar: service.seller.avatar,
-      ratingText: `${service.rating.toFixed(1)} Expert Provider`,
-      status: 'Pending Confirmation',
+      ratingText: `${service.rating.toFixed(1)} Penyedia Ahli`,
+      status: 'Menunggu Konfirmasi',
       price: service.price,
-      dateLabel: 'Estimated Completion',
-      dateValue: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      dateLabel: 'Estimasi Selesai',
+      dateValue: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }),
       category: service.category,
       chatThreadId: `th-custom-${Date.now()}`
     };
@@ -126,8 +144,8 @@ export default function App() {
       existingThread.messages.push({
         id: `msg-h-${Date.now()}`,
         sender: 'user',
-        text: `Hey! I just booked your service "${service.title}" for $${service.price}! Let's lock in the requirements.`,
-        timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+        text: `Hai! Saya baru saja memesan layanan "${service.title}" seharga $${service.price}! Mari diskusikan detailnya.`,
+        timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
       });
       existingThread.unread = true;
     } else {
@@ -143,8 +161,8 @@ export default function App() {
           {
             id: `msg-h1-${Date.now()}`,
             sender: 'user',
-            text: `Hey! I saw your service "${service.title}" on the SkillSwap explore page. I just booked it for $${service.price}!`,
-            timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+            text: `Hai! Saya lihat layanan "${service.title}" di halaman eksplorasi Campus Skill. Saya baru memesannya seharga $${service.price}!`,
+            timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
           }
         ]
       });
@@ -154,7 +172,7 @@ export default function App() {
     saveAllToLocalStorage(updatedProfile, services, updatedOrders, updatedThreads);
     setSelectedService(null);
     setActiveTab('orders');
-    triggerToast(`Successfully booked ${service.title}! Classmate notified.`);
+    triggerToast(`Berhasil memesan ${service.title}! Teman sekelas telah diberitahu.`);
   };
 
   const handleMessageSeller = (service: Service) => {
@@ -173,15 +191,15 @@ export default function App() {
         participantName: service.seller.name,
         participantAvatar: service.seller.avatar || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg',
         participantStatus: 'Online',
-        lastMessage: `Hey, inquiring about ${service.title}`,
+        lastMessage: `Hai, ingin tahu tentang ${service.title}`,
         lastMessageTime: '1m',
         unread: false,
         messages: [
           {
             id: `msg-q-${Date.now()}`,
             sender: 'user',
-            text: `Hey! I saw your service "${service.title}" on the SkillSwap explore page. Can you tell me more about it?`,
-            timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+            text: `Hai! Saya lihat layanan "${service.title}" di halaman eksplorasi Campus Skill. Bisa ceritakan lebih detail?`,
+            timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
           }
         ]
       });
@@ -198,16 +216,16 @@ export default function App() {
     // Create new service item under Jordan user profile
     const newService: Service = {
       id: `custom-srv-${Date.now()}`,
-      title: newServicePartial.title || 'Untitled service',
-      category: newServicePartial.category || 'Coding',
+      title: newServicePartial.title || 'Layanan tanpa judul',
+      category: (newServicePartial.category as ServiceCategory) || 'Pemrograman',
       rating: 5.0,
       price: newServicePartial.price || 20,
       image: newServicePartial.image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCl8lAblvCfFMdiGf7V8aR5eydkK3HDTSrAEvXZ4wbI9KV-_Y4iR6tw7Xx1El9XzLzGoIvzwawuT0pALf0m0sPGhMQ0eeHoylbiIKugDR3yis9jCO-RJteXb-6UwZVTcR4tI6ozWYgN4u6iaHlNiJmq9T4zqhPutSiLA2SnUT0qo_v4E1l0jzP0pDyASohl-jbS7leFTkGe0Z2tbfOhjyJAvvL9XaS14kL9pswFmdtmbzHfSIpBPfj3DxaBFlu6XVoOdlnGyPiaYw',
-      description: newServicePartial.description || 'Custom service listed by peer.',
+      description: newServicePartial.description || 'Layanan kustom yang didaftarkan oleh teman sekelas.',
       seller: {
         name: 'Jordan Smith',
         avatar: userProfile.avatar,
-        level: 'University of Tech Peer'
+        level: 'Teman Universitas Teknologi'
       }
     };
 
@@ -221,26 +239,26 @@ export default function App() {
     setUserProfile(updatedProfile);
 
     saveAllToLocalStorage(updatedProfile, updatedServices, orders, chatThreads);
-    triggerToast(`Successfully published ${newService.title}! Listing is live.`);
+    triggerToast(`Berhasil menerbitkan ${newService.title}! Listing sudah aktif.`);
   };
 
   const handleUpdateOrderStatus = (orderId: string, status: OrderStatus) => {
     let updatedProfile = { ...userProfile };
     const updatedOrders = orders.map((o) => {
       if (o.id === orderId) {
-        if (status === 'Completed') {
+        if (status === 'Selesai') {
           // Add to earnings if Jordy was the seller (e.g. they sold a custom listing)
           if (o.sellerName === 'Jordan Smith') {
             updatedProfile.earnings += o.price;
             updatedProfile.servicesSold += 1;
           }
-          triggerToast(`Order finalized! Funds released to tutor.`, 'success');
+          triggerToast('Pesanan selesai! Dana telah dirilis ke tutor.', 'success');
         }
         return { 
           ...o, 
           status,
-          dateLabel: status === 'Completed' ? 'Completed On' : o.dateLabel,
-          dateValue: status === 'Completed' ? new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : o.dateValue
+          dateLabel: status === 'Selesai' ? 'Selesai Pada' : o.dateLabel,
+          dateValue: status === 'Selesai' ? new Date().toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : o.dateValue
         };
       }
       return o;
@@ -252,7 +270,7 @@ export default function App() {
   };
 
   const handleCancelOrder = (orderId: string) => {
-    const isConfirmed = window.confirm('Are you sure you want to cancel this request? Deducted funds will instantly escrow back.');
+    const isConfirmed = window.confirm('Yakin ingin membatalkan permintaan ini? Dana yang terpotong akan dikembalikan ke escrow.');
     if (!isConfirmed) return;
 
     const targeted = orders.find(o => o.id === orderId);
@@ -268,18 +286,18 @@ export default function App() {
     setUserProfile(updatedProfile);
 
     saveAllToLocalStorage(updatedProfile, services, updatedOrders, chatThreads);
-    triggerToast('Order request canceled. Balance fully refunded.', 'info');
+    triggerToast('Pesanan dibatalkan. Saldo dikembalikan sepenuhnya.', 'info');
   };
 
   const handleDeleteService = (serviceId: string) => {
-    const isConfirmed = window.confirm('Are you sure you want to delete this offered skill listing?');
+    const isConfirmed = window.confirm('Yakin ingin menghapus listing layanan ini?');
     if (!isConfirmed) return;
 
     const updatedServices = services.filter(s => s.id !== serviceId);
     setServices(updatedServices);
 
     saveAllToLocalStorage(userProfile, updatedServices, orders, chatThreads);
-    triggerToast('Listing deleted successfully.', 'info');
+    triggerToast('Listing berhasil dihapus.', 'info');
   };
 
   const handleSendMessage = (threadId: string, text: string) => {
@@ -295,7 +313,7 @@ export default function App() {
               id: `msg-${Date.now()}-${Math.random()}`,
               sender: 'user' as const,
               text,
-              timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+              timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
             }
           ]
         };
@@ -323,14 +341,14 @@ export default function App() {
                 id: `msg-peer-${Date.now()}`,
                 sender: 'other' as const,
                 text,
-                timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+                timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
               }
             ]
           };
         }
         return t;
       });
-      localStorage.setItem('skillswap_threads', JSON.stringify(parsed));
+      localStorage.setItem('campusskill_threads', JSON.stringify(parsed));
       return parsed;
     });
   };
@@ -341,7 +359,7 @@ export default function App() {
       return t;
     });
     setChatThreads(updatedThreads);
-    localStorage.setItem('skillswap_threads', JSON.stringify(updatedThreads));
+    localStorage.setItem('campusskill_threads', JSON.stringify(updatedThreads));
   };
 
   const handleOpenChatWithSeller = (sellerName: string) => {
@@ -367,8 +385,8 @@ export default function App() {
           {
             id: `msg-st-${Date.now()}`,
             sender: 'user',
-            text: `Hi ${sellerName.split(',')[0]}! I just sent a schedule contract on our Calculus tutoring order.`,
-            timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+            text: `Hai ${sellerName.split(',')[0]}! Saya baru saja mengirim kontrak jadwal untuk pesanan bimbingan Kalkulus.`,
+            timestamp: new Date().toLocaleTimeString('id-ID', { hour: 'numeric', minute: '2-digit' })
           }
         ]
       });
@@ -401,7 +419,7 @@ export default function App() {
         seller: {
           name: prevOrder.sellerName,
           avatar: prevOrder.sellerAvatar,
-          level: 'SkillSwap Certified Provider'
+          level: 'Penyedia Bersertifikat Campus Skill'
         }
       };
       handleHireService(mockService);
@@ -409,20 +427,20 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm('Are you sure you want to sign out and clear sandbox session?');
+    const confirmLogout = window.confirm('Yakin ingin keluar dan menghapus sesi sandbox?');
     if (!confirmLogout) return;
 
     setIsLoggedOut(true);
-    localStorage.setItem('skillswap_loggedout', 'true');
+    localStorage.setItem('campusskill_loggedout', 'true');
   };
 
   const handleResetSandbox = () => {
     // Wipe local storage clean to refresh default demo configurations
-    localStorage.removeItem('skillswap_profile');
-    localStorage.removeItem('skillswap_services');
-    localStorage.removeItem('skillswap_orders');
-    localStorage.removeItem('skillswap_threads');
-    localStorage.setItem('skillswap_loggedout', 'false');
+    localStorage.removeItem('campusskill_profile');
+    localStorage.removeItem('campusskill_services');
+    localStorage.removeItem('campusskill_orders');
+    localStorage.removeItem('campusskill_threads');
+    localStorage.setItem('campusskill_loggedout', 'false');
 
     setUserProfile(initialUserProfile);
     setServices(initialServices);
@@ -431,89 +449,90 @@ export default function App() {
     setActiveThreadId(initialChatThreads[0].id);
     setIsLoggedOut(false);
     setActiveTab('home');
-    triggerToast('Sandbox session restored to default assets.', 'info');
+    triggerToast('Sesi sandbox dikembalikan ke pengaturan awal.', 'info');
   };
 
-  const handleLoginAsJordan = () => {
+  const handleLogin = (name: string) => {
     setIsLoggedOut(false);
-    localStorage.setItem('skillswap_loggedout', 'false');
+    localStorage.setItem('campusskill_loggedout', 'false');
+    const users = JSON.parse(localStorage.getItem('campusskill_users') || '[]');
+    const user = users.find((u: any) => u.name === name);
+    setUserProfile(prev => ({
+      ...prev,
+      name,
+      role: user ? (user.role || 'pelanggan') : prev.role,
+      ktmPhoto: user?.ktmPhoto || prev.ktmPhoto || '',
+      avatar: user?.avatar || prev.avatar,
+    }));
     setActiveTab('home');
-    triggerToast('Access granted as Jordan Smith - University of Tech CS Junior.');
+    triggerToast(`Selamat datang, ${name}!`);
   };
 
   const unreadMessagesCount = chatThreads.filter(t => t.unread).length;
-  const activeOrdersCount = orders.filter(o => o.status !== 'Completed').length;
+  const activeOrdersCount = orders.filter(o => o.status !== 'Selesai').length;
 
   return (
-    <div className="bg-gray-50/50 text-gray-800 min-h-screen font-sans">
+    <div
+      className="bg-gray-50/50 text-gray-800 min-h-screen font-sans relative"
+      onMouseMove={!isLoggedOut ? handleParallaxMove : undefined}
+    >
       {isLoggedOut ? (
-        /* Customized elegant signin gateway for the SkillSwap sandbox mock */
-        <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-blue-50/30 to-white/70">
-          <div className="relative w-full max-w-sm bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-100/90 text-center space-y-6">
-            <div className="flex flex-col items-center space-y-2.5">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-200">
-                <GraduationCap className="w-10 h-10" />
-              </div>
-              <div>
-                <h1 className="font-bold text-2xl text-blue-800 tracking-tight leading-none">SkillSwap</h1>
-                <p className="text-[10px] text-gray-400 font-mono tracking-widest uppercase font-bold mt-1.5">Campus Sandbox Protocol</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="bg-blue-50/45 p-4 rounded-2xl text-left border border-blue-50 space-y-2">
-                <p className="text-xs font-semibold text-blue-900 flex items-center gap-1.5 leading-none">
-                  <Sparkles className="w-4 h-4 text-blue-600 animate-spin" />
-                  <span>Sandbox Auth Profile Ready</span>
-                </p>
-                <div className="flex items-center gap-3 pt-1">
-                  <img src={initialUserProfile.avatar} alt="Jordan" className="w-10 h-10 rounded-full border border-gray-200 object-cover" />
-                  <div>
-                    <h3 className="font-bold text-xs text-gray-800 leading-none">{initialUserProfile.name}</h3>
-                    <p className="text-[10px] text-gray-400 font-medium mt-1">{initialUserProfile.university}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <button 
-                  type="button"
-                  onClick={handleLoginAsJordan}
-                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-blue-200 cursor-pointer flex items-center justify-center gap-2 transition-transform duration-150 active:scale-95"
-                >
-                  <KeyRound className="w-4 h-4" />
-                  <span>Login with Institutional ID</span>
-                </button>
-
-                <button 
-                  type="button"
-                  onClick={handleResetSandbox}
-                  className="w-full py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-bold text-sm cursor-pointer flex items-center justify-center gap-1.5"
-                  title="Clear storage cache records"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  <span>Reset Sandbox state</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="text-[10px] text-gray-400">
-              Payments are escrow protected. Peer to peer institutional credentials verified.
-            </div>
-          </div>
-        </div>
+        <AuthPage
+          userProfile={initialUserProfile}
+          onLogin={handleLogin}
+          onReset={handleResetSandbox}
+        />
       ) : (
         <>
+          {/* Parallax ambient background */}
+          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+            <motion.div
+              className="absolute w-[600px] h-[600px] rounded-full"
+              animate={{ x: parallaxLayer(40).x, y: parallaxLayer(40).y }}
+              transition={{ type: 'spring', stiffness: 30, damping: 30 }}
+              style={{ background: 'radial-gradient(circle, rgba(255,62,0,0.04) 0%, transparent 70%)', top: '-10%', left: '-5%' }}
+            />
+            <motion.div
+              className="absolute w-[400px] h-[400px] rounded-full"
+              animate={{ x: parallaxLayer(-30).x, y: parallaxLayer(-30).y }}
+              transition={{ type: 'spring', stiffness: 35, damping: 30 }}
+              style={{ background: 'radial-gradient(circle, rgba(26,26,26,0.03) 0%, transparent 70%)', bottom: '10%', right: '5%' }}
+            />
+            <motion.div
+              className="absolute w-[250px] h-[250px] rounded-full"
+              animate={{ x: parallaxLayer(25).x, y: parallaxLayer(25).y }}
+              transition={{ type: 'spring', stiffness: 45, damping: 25 }}
+              style={{ background: 'radial-gradient(circle, rgba(255,62,0,0.06) 0%, transparent 70%)', top: '40%', right: '15%' }}
+            />
+            <motion.div
+              className="absolute w-[180px] h-[180px] rounded-full"
+              animate={{ x: parallaxLayer(-20).x, y: parallaxLayer(-20).y }}
+              transition={{ type: 'spring', stiffness: 50, damping: 25 }}
+              style={{ background: 'radial-gradient(circle, rgba(244,241,234,0.03) 0%, transparent 70%)', bottom: '30%', left: '10%' }}
+            />
+            {/* Grid overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.015]"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(26,26,26,1) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,26,1) 1px, transparent 1px)',
+                backgroundSize: '80px 80px',
+              }}
+            />
+          </div>
+
           {/* Top fixed bar */}
-          <Header 
+          <div className="relative z-20">
+            <Header 
             onTabChange={setActiveTab} 
             activeTab={activeTab} 
             unreadMessagesCount={unreadMessagesCount}
             activeOrdersCount={activeOrdersCount}
           />
+          </div>
 
           {/* Main workspace with top offset */}
-          <main className="pt-24 pb-24 md:pb-12 px-4 max-w-7xl mx-auto">
+          <main className="pt-24 pb-24 md:pb-12 px-4 max-w-7xl mx-auto relative z-10">
             {activeTab === 'home' && (
               <HomeTab 
                 services={services} 
@@ -557,11 +576,13 @@ export default function App() {
           </main>
 
           {/* Mobile bottom persistent bar */}
-          <Navbar 
+          <div className="relative z-20">
+            <Navbar 
             activeTab={activeTab} 
             onTabChange={setActiveTab} 
             unreadMessagesCount={unreadMessagesCount}
           />
+          </div>
 
           {/* Service Details Popup modal */}
           {selectedService && (

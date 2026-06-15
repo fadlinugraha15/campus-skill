@@ -23,7 +23,7 @@ export default function Navbar({ activeTab, onTabChange, unreadMessagesCount }: 
           className={`flex flex-col items-center justify-center w-16 h-full transition-transform duration-200 active:scale-90 ${activeTab === 'home' ? 'text-[#FF3E00] relative after:content-[""] after:w-1.5 after:h-1.5 after:bg-[#FF3E00] after:mt-1 font-bold' : 'text-[#1A1A1A]/60'}`}
         >
           <Home className={`w-5 h-5`} />
-          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Collection</span>
+          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Koleksi</span>
         </button>
 
         {/* Orders Tab Navigation Link */}
@@ -33,7 +33,7 @@ export default function Navbar({ activeTab, onTabChange, unreadMessagesCount }: 
           className={`flex flex-col items-center justify-center w-16 h-full transition-transform duration-200 active:scale-90 ${activeTab === 'orders' ? 'text-[#FF3E00] relative after:content-[""] after:w-1.5 after:h-1.5 after:bg-[#FF3E00] after:mt-1 font-bold' : 'text-[#1A1A1A]/60'}`}
         >
           <ClipboardList className="w-5 h-5" />
-          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Orders</span>
+          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Pesanan</span>
         </button>
 
         {/* Inbox Tab Navigation Link with dynamic count */}
@@ -43,7 +43,7 @@ export default function Navbar({ activeTab, onTabChange, unreadMessagesCount }: 
           className={`flex flex-col items-center justify-center w-16 h-full transition-transform duration-200 active:scale-90 relative ${activeTab === 'inbox' ? 'text-[#FF3E00] relative after:content-[""] after:w-1.5 after:h-1.5 after:bg-[#FF3E00] after:mt-1 font-bold' : 'text-[#1A1A1A]/60'}`}
         >
           <MessageSquare className={`w-5 h-5`} />
-          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Inbox</span>
+          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Pesan</span>
           {unreadMessagesCount > 0 && (
             <span className="absolute top-1 right-2 bg-[#1A1A1A] text-white text-[9px] font-bold px-1 font-mono border border-white">
               {unreadMessagesCount}
@@ -58,7 +58,7 @@ export default function Navbar({ activeTab, onTabChange, unreadMessagesCount }: 
           className={`flex flex-col items-center justify-center w-16 h-full transition-transform duration-200 active:scale-90 ${activeTab === 'profile' ? 'text-[#FF3E00] relative after:content-[""] after:w-1.5 after:h-1.5 after:bg-[#FF3E00] after:mt-1 font-bold' : 'text-[#1A1A1A]/60'}`}
         >
           <User className="w-5 h-5" />
-          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Archive</span>
+          <span className="text-[9px] leading-[14px] uppercase tracking-wider font-mono font-bold mt-1">Arsip</span>
         </button>
       </div>
     </nav>
